@@ -2,13 +2,12 @@ const express=require('express');
 const app=express();
 const path=require('path');
 const methodOverride=require('method-override');
-const articles=require('./models/Article');
+const articles=require('./models/article');
 const mongoose=require('mongoose');
 
 mongoose.connect('mongodb://127.0.0.1:27017/Articles').then(()=>console.log("DB connected"));
 
 
-// articles.create({title:'abcd', date:d, description:'first article',  content:"articles are here"});
 const port=5000;
 
 app.use(express.urlencoded({extended:true}));
@@ -26,11 +25,11 @@ app.get('/',async(req,res)=>{
 })
 
 app.get('/articles/new',(req,res)=>{
-    res.render('addArticle');
+    res.render('addArticles');
 });
 
 
-app.post('/articles',async(req,res)=>{
+app.post('/article',async(req,res)=>{
     const {title,description,content}=req.body;
     const d=new Date().toLocaleString();
     await articles.create({title, d, description,  content});
